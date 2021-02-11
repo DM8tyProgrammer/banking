@@ -45,7 +45,7 @@ public class BankingFunction implements BankingInterface {
 
     @Override
     public Collection<Transaction> generateDetailedStatement(User user, Date start, Date end) {
-        return transactionFunction.generateMiniStatement(user);
+        return transactionFunction.generateDetailedStatement(user, start, end);
     }
 
     @Override

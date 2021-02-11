@@ -31,8 +31,6 @@ class UserFunctionProvider implements UserAccountFunction {
 
     @Override
     public double getBalance(User user) {
-
-        // note: user should be searched by id ideally;
         return userRepository.find(user)
                 .map(User::getAccount)
                 .map(Account::getBalance)
@@ -43,10 +41,9 @@ class UserFunctionProvider implements UserAccountFunction {
     @Override
     @Transactional
     public double updateBalance(User user, double byAmount) {
-
-
         Optional<User> mayBeUser = userRepository.find(user);
 
+        // check existence of user
         if(! /*not */ mayBeUser.isPresent()) {
             throw new UserNotFound(user);
         }
@@ -64,9 +61,7 @@ class UserFunctionProvider implements UserAccountFunction {
 
         account.setBalance(updatedBalance);
 
-
         // generate transaction
-
         Transaction transaction = new Transaction(byAmount, new Date(), persistedUser);
         transactionRepository.save(transaction);
 

@@ -10,7 +10,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 
     default Optional<User> find(User user) {
-
         // note: user should be searched by id ideally;
         return findByFirstNameAndLastName(user.getFirstName(), user.getLastName());
     }
